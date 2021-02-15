@@ -8,6 +8,12 @@ enum playerStates {
 	stun
 }
 
+enum selectedItem {
+	noItem,
+	firstItem,
+	secondItem
+}
+
 // player default state is idle
 state = playerStates.idle;
 
@@ -39,6 +45,13 @@ collisionMap = layer_tilemap_get_id(layer_get_id("Col"));
 
 // Inventory List
 inventory = ds_list_create();
+
+// Split inventory
+firstInventory = undefined;
+secondInventory = undefined;
+
+// Selected inventory
+selectedInventory = selectedItem.noItem;
 
 // interface
 instance_create_layer(0, 0, "Instances", oItemMenu);
