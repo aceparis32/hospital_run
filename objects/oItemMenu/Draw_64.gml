@@ -23,8 +23,7 @@ for (var i = 0; i < ds_list_size(oPlayer.inventory); i++){
 	draw_sprite(arr.sprite, 0, xx + cellSize / 2, cellSize);
 	
 	// Draw item name
-
-	draw_text(cellSize, cellSize/2, arr.name);
+	//draw_text(cellSize, cellSize/2, arr.name);
 }
 
 // Draw surface

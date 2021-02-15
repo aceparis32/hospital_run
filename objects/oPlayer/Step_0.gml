@@ -8,9 +8,11 @@ keyRight = keyboard_check(vk_right) || keyboard_check(ord("D"));
 keyUp = keyboard_check(vk_up) || keyboard_check(ord("W"));
 keyDown = keyboard_check(vk_down) || keyboard_check(ord("S"));
 keySneak = keyboard_check(vk_control);
-keyDash = keyboard_check_pressed(vk_shift);
-keyTakeItem = keyboard_check_pressed(ord("E"));
-keyDropItem = keyboard_check_pressed(ord("G"));
+keyDash = keyboard_check_pressed(vk_space);
+keyTakeItem = keyboard_check_pressed(ord("F"));
+keyActivateDropItem = keyboard_check(vk_shift);
+keyDropFirstItem = keyboard_check_pressed(ord("Q"));
+keyDropSecondItem = keyboard_check_pressed(ord("E"));
 
 inputDirection = point_direction(0, 0, keyRight - keyLeft, keyDown - keyUp);
 inputMagnitude = (keyRight - keyLeft != 0) || (keyDown - keyUp != 0);
@@ -25,11 +27,19 @@ if(dashCooldown > 0){
 	dashCooldown--;	
 }
 
-if(keyDropItem) {
+if(keyDropFirstItem && keyActivateDropItem) {
+	show_debug_message("drop first item");
 	if (!ds_list_empty(inventory)) {
 		ItemSpawn(x, y, inventory[| 0].object);
-		ds_list_clear(inventory);	
+		ds_list_delete(inventory, 0);
 	}	
+}
+
+if(keyDropSecondItem && keyActivateDropItem) {
+	if (!ds_list_empty(inventory) && ds_list_size(inventory) == 2){
+		ItemSpawn(x, y, inventory[| 1].object);
+		ds_list_delete(inventory, 1);
+	}
 }
 
 if(state == playerStates.idle && !isPlayerStunned){

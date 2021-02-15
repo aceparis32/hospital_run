@@ -8,5 +8,5 @@ cellSize = 64;
 rectWidth = guiW * 0.18;
 rectHeight = cellSize;
 
-x = guiW * 0.8;
-y = 10;
+x = 10;
+y = guiH * 0.9;
