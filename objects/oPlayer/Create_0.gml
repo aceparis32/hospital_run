@@ -27,7 +27,7 @@ speedWalk = PLAYER_SPEED;
 speedSneak = speedWalk * 0.25;
 // Player dash properties
 speedDash = 3.0;
-distanceDash = 40;
+distanceDash = 150;
 dashCooldown = 0.0;
 // Player stun properties
 playerStunned = 0;
@@ -55,5 +55,14 @@ selectedInventory = selectedItem.noItem;
 
 // interface
 instance_create_layer(0, 0, "Instances", oItemMenu);
+instance_create_layer(0, 0, "Instances", oMap);
 tilesId = layer_get_id("Tiles");
 wallTilemap = layer_tilemap_get_id(tilesId);
+
+// Map
+mapObject = oMap;
+mapObject.showMap = false;
+
+// Knockback
+boostX = 0;
+boostY = 0;

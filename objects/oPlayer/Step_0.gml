@@ -97,3 +97,15 @@ if(state == playerStates.idle && !isPlayerStunned){
 	script_execute(PlayerStunned);
 	#endregion
 }
+
+// Enemy Collision
+var enemy = instance_place(x, y, oEnemies);
+
+if (enemy && enemy.state == st.attack) {
+	var dir = point_direction(enemy.x, enemy.y, x, y);
+	boostX = lengthdir_x(8, dir);
+	boostY = lengthdir_y(8, dir);
+}
+
+boostX = lerp(boostX, 0, 0.1);
+boostY = lerp(boostY, 0, 0.1);

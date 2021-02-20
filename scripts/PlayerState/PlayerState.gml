@@ -1,7 +1,10 @@
 // Script assets have changed for v2.3.0 see
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 function PlayerStateFree(){
+	
 	if (!isPlayerStunned) {
+		PlayerCollisionWalk();
+		
 		// UPDATE SPRITE INDEX
 		var _oldSprite = sprite_index;
 		if (inputMagnitude != 0 && keySneak){
@@ -55,8 +58,8 @@ function PlayerStateWalk(){
 
 function PlayerStateSneak(){
 	// MOVEMENT
-	hSpeed = lengthdir_x(inputMagnitude * speedSneak, inputDirection);
-	vSpeed = lengthdir_y(inputMagnitude * speedSneak, inputDirection);
+	hSpeed = lengthdir_x(inputMagnitude * speedSneak, inputDirection) + boostX;
+	vSpeed = lengthdir_y(inputMagnitude * speedSneak, inputDirection) + boostY;
 
 	if(PlayerCollisionWall(x + hSpeed, y, oBorder)){
 		while (!PlayerCollisionWall(x + sign(hSpeed), y, oBorder)) {
@@ -120,8 +123,8 @@ function PlayerStateSneak(){
 
 function PlayerStateDash(){
 	// Movement
-	hSpeed = lengthdir_x(speedDash, direction);
-	vSpeed = lengthdir_y(speedDash, direction);
+	hSpeed = lengthdir_x(speedDash, direction) + round(boostX);
+	vSpeed = lengthdir_y(speedDash, direction) + round(boostY);
 	
 	moveDistanceRemaining = max(0, moveDistanceRemaining - speedDash);
 	// Collision Check 

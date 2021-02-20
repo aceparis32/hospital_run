@@ -4,40 +4,39 @@ function PlayerCollisionDash(){
 	var _collision = false;
 	var _entityList = ds_list_create();
 	
-	if(PlayerCollisionWall(x + hSpeed, y, oBorder)){
-		while (!PlayerCollisionWall(x + sign(hSpeed), y, oBorder)) {
-		    x += sign(hSpeed);
-		}
+	#region Tilemap wall collision
+	// Right Collision
+	if (tilemap_get_at_pixel(wallTilemap, bbox_right + hSpeed, y) != 0){
+		x = round(x);
+		
 		hSpeed = 0;
-	}else if(PlayerCollisionWall(x + hSpeed, y, oBorderBottom)){
-		while (!PlayerCollisionWall(x + sign(hSpeed), y, oBorderBottom)) {
-		    x += sign(hSpeed);
-		}
-		hSpeed = 0;
-	}else if(PlayerCollisionWall(x + hSpeed, y, oBorderRight)){
-		while (!PlayerCollisionWall(x + sign(hSpeed), y, oBorderRight)) {
-		    x += sign(hSpeed);
-		}
-		hSpeed = 0;
+		_collision = true;
 	}
 	
-	if(PlayerCollisionWall(x, y + vSpeed, oBorder)){
-		while (!PlayerCollisionWall(x, y + sign(vSpeed), oBorder)) {
-		    y += sign(vSpeed);
-		}
+	// Left Collision
+	if (tilemap_get_at_pixel(wallTilemap, bbox_left + hSpeed, y) != 0){
+		x = round(x);
+		
+		hSpeed = 0;
+		_collision = true;
+	}
+
+	// Top Collision
+	if (tilemap_get_at_pixel(wallTilemap, x, bbox_top + vSpeed) != 0){
+		y = round(y);
+		
 		vSpeed = 0;
-	}else if(PlayerCollisionWall(x, y + vSpeed, oBorderBottom)){
-		while (!PlayerCollisionWall(x, y + sign(vSpeed), oBorderBottom)) {
-		    y += sign(vSpeed);
-		}
-		vSpeed = 0;
-	}else if(PlayerCollisionWall(x, y + vSpeed, oBorderRight)){
-		while (!PlayerCollisionWall(x, y + sign(vSpeed), oBorderRight)) {
-		    y += sign(vSpeed);
-		}
-		vSpeed = 0;
+		_collision = true;
 	}
 	
+	// Bottom Collision
+	if (tilemap_get_at_pixel(wallTilemap, x, bbox_bottom + vSpeed) != 0){
+		y = round(y);
+		
+		vSpeed = 0;
+		_collision = true;
+	}
+	#endregion
 	// Horizontal entities
 	var _entityCount = instance_position_list(x + hSpeed, y, pEntity, _entityList, false);
 	// Boundary
@@ -102,56 +101,15 @@ function PlayerCollisionWall(_x, _y, _border){
 	
 function PlayerCollisionWalk(){
 		// MOVEMENT
-	hSpeed = lengthdir_x(inputMagnitude * speedWalk, inputDirection);
-	vSpeed = lengthdir_y(inputMagnitude * speedWalk, inputDirection);
+	hSpeed = lengthdir_x(inputMagnitude * speedWalk, inputDirection) + round(boostX);
+	vSpeed = lengthdir_y(inputMagnitude * speedWalk, inputDirection) + round(boostY);
 
 	var _collision = false;
-	
-	//if(PlayerCollisionWall(x + hSpeed, y, oBorder)){
-	//	while (!PlayerCollisionWall(x + sign(hSpeed), y, oBorder)) {
-	//	    x += sign(hSpeed);
-	//	}
-	//	hSpeed = 0;
-	//}else if(PlayerCollisionWall(x + hSpeed, y, oBorderBottom)){
-	//	while (!PlayerCollisionWall(x + sign(hSpeed), y, oBorderBottom)) {
-	//	    x += sign(hSpeed);
-	//	}
-	//	hSpeed = 0;
-	//}else if(PlayerCollisionWall(x + hSpeed, y, oBorderRight)){
-	//	while (!PlayerCollisionWall(x + sign(hSpeed), y, oBorderRight)) {
-	//	    x += sign(hSpeed);
-	//	}
-	//	hSpeed = 0;
-	//}
-	
-	//if(PlayerCollisionWall(x, y + vSpeed, oBorder)){
-	//	while (!PlayerCollisionWall(x, y + sign(vSpeed), oBorder)) {
-	//	    y += sign(vSpeed);
-	//	}
-	//	vSpeed = 0;
-	//}else if(PlayerCollisionWall(x, y + vSpeed, oBorderBottom)){
-	//	while (!PlayerCollisionWall(x, y + sign(vSpeed), oBorderBottom)) {
-	//	    y += sign(vSpeed);
-	//	}
-	//	vSpeed = 0;
-	//}else if(PlayerCollisionWall(x, y + vSpeed, oBorderRight)){
-	//	while (!PlayerCollisionWall(x, y + sign(vSpeed), oBorderRight)) {
-	//	    y += sign(vSpeed);
-	//	}
-	//	vSpeed = 0;
-	//}
 	
 	#region Tilemap wall collision
 	// Right Collision
 	if (tilemap_get_at_pixel(wallTilemap, bbox_right + hSpeed, y) != 0){
 		x = round(x);
-		//while (tilemap_get_at_pixel(wallTilemap, bbox_right, y) == 0) {
-		//	x += hSpeed;	
-		//}
-		
-		//while (tilemap_get_at_pixel(wallTilemap, bbox_right, y) != 0) {
-		//	x -= hSpeed;
-		//}
 		
 		hSpeed = 0;
 		_collision = true;
@@ -160,13 +118,6 @@ function PlayerCollisionWalk(){
 	// Left Collision
 	if (tilemap_get_at_pixel(wallTilemap, bbox_left + hSpeed, y) != 0){
 		x = round(x);
-		//while (tilemap_get_at_pixel(wallTilemap, bbox_left, y) == 0) {
-		//	x += hSpeed;	
-		//}
-		
-		//while (tilemap_get_at_pixel(wallTilemap, bbox_left, y) != 0) {
-		//	x -= hSpeed;
-		//}
 		
 		hSpeed = 0;
 		_collision = true;
@@ -175,13 +126,6 @@ function PlayerCollisionWalk(){
 	// Top Collision
 	if (tilemap_get_at_pixel(wallTilemap, x, bbox_top + vSpeed) != 0){
 		y = round(y);
-		//while (tilemap_get_at_pixel(wallTilemap, x, bbox_top) == 0) {
-		//	y += hSpeed;	
-		//}
-		
-		//while (tilemap_get_at_pixel(wallTilemap, x, bbox_top) != 0) {
-		//	y -= hSpeed;
-		//}
 		
 		vSpeed = 0;
 		_collision = true;
@@ -190,13 +134,6 @@ function PlayerCollisionWalk(){
 	// Bottom Collision
 	if (tilemap_get_at_pixel(wallTilemap, x, bbox_bottom + vSpeed) != 0){
 		y = round(y);
-		//while (tilemap_get_at_pixel(wallTilemap, x, bbox_bottom) == 0) {
-		//	y += hSpeed;	
-		//}
-		
-		//while (tilemap_get_at_pixel(wallTilemap, x, bbox_bottom) != 0) {
-		//	y -= hSpeed;
-		//}
 		
 		vSpeed = 0;
 		_collision = true;
