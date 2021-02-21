@@ -9,7 +9,6 @@ enum playerStates {
 }
 
 enum selectedItem {
-	noItem,
 	firstItem,
 	secondItem
 }
@@ -51,7 +50,7 @@ firstInventory = undefined;
 secondInventory = undefined;
 
 // Selected inventory
-selectedInventory = selectedItem.noItem;
+selectedInventory = selectedItem.firstItem;
 
 // interface
 instance_create_layer(0, 0, "Instances", oItemMenu);
@@ -66,3 +65,7 @@ mapObject.showMap = false;
 // Knockback
 boostX = 0;
 boostY = 0;
+
+// Timer
+keyTimer = room_speed * 0.3;
+crowbarsTimer = room_speed * 2.5;

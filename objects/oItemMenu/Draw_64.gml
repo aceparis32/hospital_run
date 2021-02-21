@@ -9,6 +9,8 @@ surface_set_target(surf);
 // Items
 var border = 2;
 
+var xx = cellSize;
+
 // Item Selected BG
 switch(oPlayer.selectedInventory) {
 	case selectedItem.firstItem:
@@ -18,6 +20,7 @@ switch(oPlayer.selectedInventory) {
 		draw_set_alpha(0.8);
 		draw_rectangle(xx + border, border, xx + cellSize - border * 2, cellSize - border*2, false);
 		draw_set_alpha(1);
+		draw_text(xx + 5, 5, "1");
 		break;
 	case selectedItem.secondItem:
 		var xx = 2 * cellSize;
@@ -26,6 +29,7 @@ switch(oPlayer.selectedInventory) {
 		draw_set_alpha(0.8);
 		draw_rectangle(xx + border, border, xx + cellSize - border * 2, cellSize - border*2, false);
 		draw_set_alpha(1);
+		draw_text(xx + 5, 5, "2");
 		break;
 	default:
 		break;

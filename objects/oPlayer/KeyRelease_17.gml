@@ -1,1 +1,1 @@
-oSkeleton.range = 128;
+oSkeleton.range = 40;

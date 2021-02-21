@@ -29,50 +29,25 @@ if(dashCooldown > 0){
 }
 
 if(keyDropFirstItem) {
-	show_debug_message("drop first item");
-	//if (!ds_list_empty(inventory)) {
-	//	ItemSpawn(x, y, inventory[| 0].object);
-	//	ds_list_delete(inventory, 0);
-	//}
 	if (firstInventory != undefined) {
 		ItemSpawn(x, y, firstInventory.object);
 		firstInventory = undefined;
-		
-		if(secondInventory != undefined) {
-			selectedInventory = selectedItem.secondItem;	
-		}else{
-			selectedInventory = selectedItem.noItem;	
-		}
 	}
 }
 
 if(keyDropSecondItem) {
-	//if (!ds_list_empty(inventory) && ds_list_size(inventory) == 2){
-	//	ItemSpawn(x, y, inventory[| 1].object);
-	//	ds_list_delete(inventory, 1);
-	//}
 	if (secondInventory != undefined) {
 		ItemSpawn(x, y, secondInventory.object);
 		secondInventory = undefined;
-		
-		if(firstInventory != undefined) {
-			selectedInventory = selectedItem.firstItem;	
-		}else{
-			selectedInventory = selectedItem.noItem;
-		}
 	}
 }
 
 if(keySelectFirstItem) {
-	if (firstInventory != undefined) {
-		selectedInventory = selectedItem.firstItem;
-	}
+	selectedInventory = selectedItem.firstItem;
 }
 
 if(keySelectSecondItem) {
-	if (secondInventory != undefined) {
-		selectedInventory = selectedItem.secondItem;	
-	}
+	selectedInventory = selectedItem.secondItem;
 }
 
 if(state == playerStates.idle && !isPlayerStunned){
