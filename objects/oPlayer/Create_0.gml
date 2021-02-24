@@ -5,7 +5,8 @@ enum playerStates {
 	walk,
 	sneak,
 	dash,
-	stun
+	stun,
+	slip
 }
 
 enum selectedItem {
@@ -13,8 +14,11 @@ enum selectedItem {
 	secondItem
 }
 
+dropItemRange = 0;
+
 // player default state is idle
 state = playerStates.idle;
+stateName = "Idle";
 
 // Horizontal Speed
 hSpeed = 0;
@@ -26,11 +30,14 @@ speedWalk = PLAYER_SPEED;
 speedSneak = speedWalk * 0.25;
 // Player dash properties
 speedDash = 3.0;
-distanceDash = 150;
+distanceDash = 100;
 dashCooldown = 0.0;
 // Player stun properties
 playerStunned = 0;
 isPlayerStunned = false;
+// Player slip properties
+distanceSlip = 120;
+speedSlip = 5.0;
 
 // Store sprite into variables
 spriteIdle = sPlayer;
@@ -69,3 +76,6 @@ boostY = 0;
 // Timer
 keyTimer = room_speed * 0.3;
 crowbarsTimer = room_speed * 2.5;
+itemTimer = 0;
+// Player interaction time
+interactionTimeStatus = false;

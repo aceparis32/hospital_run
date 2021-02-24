@@ -52,25 +52,32 @@ if(keySelectSecondItem) {
 
 if(state == playerStates.idle && !isPlayerStunned){
 	#region idle
+	stateName = "Idle";
 	script_execute(PlayerStateFree);
 	#endregion
 }else if(state == playerStates.walk && !isPlayerStunned){
 	#region walk
+	stateName = "Walk";
 	script_execute(PlayerStateWalk);
 	#endregion
 }else if(state == playerStates.sneak && !isPlayerStunned){
 	#region sneak
+	stateName = "Sneak";
 	script_execute(PlayerStateSneak);
 	#endregion
 }else if(state == playerStates.dash && !isPlayerStunned){
-	#region dash	
+	#region dash
+	stateName = "Dash";
 	script_execute(PlayerStateDash);
 	#endregion
 }else if(state == playerStates.stun){
 	#region stunned
-	show_debug_message("player enter stun condition");
+	stateName = "Stunned";
 	script_execute(PlayerStunned);
 	#endregion
+}else if(state == playerStates.slip) {
+	stateName = "Slip";
+	script_execute(PlayerSlipped);	
 }
 
 // Enemy Collision

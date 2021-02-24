@@ -50,6 +50,10 @@ function PlayerStateWalk(){
 		if(_oldSprite != sprite_index){
 			localFrame = 0;
 		}
+		
+		if (place_meeting(x, y, oPuddle)) {
+			state = playerStates.slip;
+		}
 	
 		PlayerAnimateSprite();	
 		
@@ -118,6 +122,10 @@ function PlayerStateSneak(){
 		localFrame = 0;
 	}
 	
+	if (place_meeting(x, y, oPuddle)) {
+		state = playerStates.slip;
+	}
+	
 	PlayerAnimateSprite();
 }
 
@@ -127,6 +135,11 @@ function PlayerStateDash(){
 	vSpeed = lengthdir_y(speedDash, direction) + round(boostY);
 	
 	moveDistanceRemaining = max(0, moveDistanceRemaining - speedDash);
+	
+	if (place_meeting(x, y, oPuddle)) {
+		state = playerStates.slip;
+	}
+	
 	// Collision Check 
 	var _collided = PlayerCollisionDash();
 	
@@ -136,6 +149,7 @@ function PlayerStateDash(){
 	if (moveDistanceRemaining <= 0){
 		state = playerStates.idle;
 		sprite_index = spriteIdle;
+		dropItemRange = 0;
 	}
 	
 	if (_collided) {
@@ -159,13 +173,41 @@ function PlayerStateDash(){
 }
 
 function PlayerStunned() {
-	//hSpeed = 0;
-	//vSpeed = 0;
-	//sprite_index = spriteIdle;
-	//playerStunned--;
-	//show_debug_message("Player stunned for : " + string(isPlayerStunned) + " seconds");
+	playerStunned--;	
 	
-	//if (isPlayerStunned <= 0) {
-	//	state = playerStates.idle;	
+	if (playerStunned <= 0) {
+		playerStunned = 0;
+		isPlayerStunned = false;
+		state = playerStates.idle;
+	}
+}
+
+function PlayerSlipped() {
+	// Movement
+	hSpeed = lengthdir_x(speedSlip, direction);
+	vSpeed = lengthdir_y(speedSlip, direction);
+	
+	distanceSlip = distanceSlip - speedSlip;
+	dropItemRange++;
+	if (dropItemRange mod 5 == 0) {
+		instance_create_layer(x, y, "ObjectInstances", oPuddle);
+	}
+	//for(i = 0; i < 4; i++) {
+	//	ItemSpawn(x + (i * 32), y + (i * 32), oPuddle);	
 	//}
+	
+	// Collision Check 
+	var _collided = PlayerCollisionDash();
+	
+	// No dash animation
+	
+	// If dash distance was finished, change state to normal
+	if (distanceSlip <= 0){
+		playerStunned = 2 * 60;
+		isPlayerStunned = true;
+		state = playerStates.stun;
+		sprite_index = spriteIdle;
+		dropItemRange = 0;
+		distanceSlip = 120;
+	}
 }

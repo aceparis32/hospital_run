@@ -1,4 +1,3 @@
-// Menu
 enum mp {
 	enterRoom,
 	search,
@@ -17,6 +16,9 @@ menuText[mp.quit] = "Quit";
 
 menuSelected = 0;
 menuOptions = array_length_1d(menuText);
+
+// Textbox
+searchTextbox = oTextBox;
 
 //// Resolution
 //width = 480;

@@ -210,3 +210,5 @@ function PlayerCollisionWalk(){
 	
 	return _collision;	
 }
+	
+	

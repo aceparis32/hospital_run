@@ -21,20 +21,21 @@ if (mouseOption >= 0 && mouseOption < menuOptions) {
 // Select
 if (keyboard_check_pressed(vk_enter) || mouse_check_button_pressed(mb_left)) {
 	switch (menuSelected) {
+		// Main menu
 		case mp.enterRoom:
 			room_goto(HospitalRoom);
 			break;
 		case mp.search:
-			show_debug_message("enter search menu");
+			searchTextbox.textboxActive = !searchTextbox.textboxActive;
 			break;
 		case mp.host:
-			show_debug_message("enter host menu");
+
 			break;
 		case mp.options:
-			show_debug_message("enter options menu");
+
 			break;		
 		case mp.gameGuide:
-			show_debug_message("enter game guide menu");
+
 			break;
 		case mp.quit:
 			game_end();

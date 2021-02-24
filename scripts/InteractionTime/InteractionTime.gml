@@ -4,6 +4,7 @@ function InteractionTime(_interactedItem){
 	switch (_interactedItem) {
 		case 0:
 			keyTimer -= 1;
+			itemTimer = keyTimer / room_speed;
 			show_debug_message("Key Timer Left in seconds : " + string(keyTimer / room_speed));
 			if (keyTimer <= 0) {
 				keyTimer = 0;
@@ -11,6 +12,7 @@ function InteractionTime(_interactedItem){
 			}
 		case 1:
 			crowbarsTimer -= 1;
+			itemTimer = crowbarsTimer / room_speed;
 			show_debug_message("Crowbars Timer Left in seconds : " + string(crowbarsTimer / room_speed));
 			if (crowbarsTimer <= 0) {
 				crowbarsTimer = 0;

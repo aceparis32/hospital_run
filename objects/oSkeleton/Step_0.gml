@@ -1,4 +1,8 @@
-switch (state){
+if (collision_line(x, y, oPlayer.x, oPlayer.y, oBorder, 1, 0)) {
+	visible = false;	
+}else{
+	visible = true;
+	switch (state){
 	case st.idle: case st.move:
 		//Input
 		var inputX = 0, inputY = 0, run = 0, attack = 0;
@@ -67,3 +71,4 @@ switch (state){
 }
 
 sprite_index = sprites[state, moveDir];
+}

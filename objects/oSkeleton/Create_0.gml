@@ -9,7 +9,7 @@ enum st {
 moveSpeed = 1;
 moveDir = 0;
 
-range = 40;
+range = 64;
 
 //Variables
 moveX = 0;

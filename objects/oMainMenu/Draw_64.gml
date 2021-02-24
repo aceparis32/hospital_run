@@ -18,7 +18,20 @@ for (var i=0; i < menuOptions; i++) {
 	if (i != menuSelected) draw_set_alpha(0.7);
 	
 	// Draw
-	draw_text(menuX, menuY + 32 * i, menuText[i]);
+	switch (currentMenu) {
+		case submenu.mainMenu:
+			draw_text(menuX, menuY + 32 * i, menuText[i]);
+			break;
+		case submenu.hostMenu:
+			draw_text(menuX, menuY + 32 * i, hostMenuText[i]);
+			break;
+		case submenu.optionsMenu:
+			draw_text(menuX, menuY + 32 * i, optionsMenuText[i]);
+			break;
+		case submenu.guideMenu:
+			draw_text(menuX, menuY + 32 * i, guideMenuText[i]);
+			break;
+	}
 	
 	// Reset
 	
