@@ -36,7 +36,7 @@ if (keyboard_check_pressed(vk_enter) || mouse_check_button_pressed(mb_left)) {
 		case op.save:
 			break;
 		case op.quit:
-			game_restart();
+			room_goto(MainMenuRoom);
 			break;
 	}
 }

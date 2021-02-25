@@ -97,8 +97,10 @@
     {"id":{"name":"sSkeleton_Move_Left","path":"sprites/sSkeleton_Move_Left/sSkeleton_Move_Left.yy",},"order":4,},
     {"id":{"name":"oBorderRight","path":"objects/oBorderRight/oBorderRight.yy",},"order":2,},
     {"id":{"name":"snd_test","path":"sounds/snd_test/snd_test.yy",},"order":2,},
+    {"id":{"name":"ChangeRoom","path":"scripts/ChangeRoom/ChangeRoom.yy",},"order":7,},
     {"id":{"name":"sGUIBattery","path":"sprites/sGUIBattery/sGUIBattery.yy",},"order":3,},
     {"id":{"name":"sGUIHolyWater","path":"sprites/sGUIHolyWater/sGUIHolyWater.yy",},"order":7,},
+    {"id":{"name":"oMenu","path":"objects/oMenu/oMenu.yy",},"order":2,},
     {"id":{"name":"oKey","path":"objects/oKey/oKey.yy",},"order":9,},
     {"id":{"name":"sSkeleton_Move_Down","path":"sprites/sSkeleton_Move_Down/sSkeleton_Move_Down.yy",},"order":6,},
     {"id":{"name":"sBottle","path":"sprites/sBottle/sBottle.yy",},"order":8,},
@@ -136,9 +138,9 @@
     "children": [],
   },
   "RoomOrderNodes": [
-    {"roomId":{"name":"HospitalRoom","path":"rooms/HospitalRoom/HospitalRoom.yy",},},
     {"roomId":{"name":"MainMenuRoom","path":"rooms/MainMenuRoom/MainMenuRoom.yy",},},
     {"roomId":{"name":"MenuRoom","path":"rooms/MenuRoom/MenuRoom.yy",},},
+    {"roomId":{"name":"HospitalRoom","path":"rooms/HospitalRoom/HospitalRoom.yy",},},
     {"roomId":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
   ],
   "Folders": [
