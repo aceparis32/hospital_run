@@ -65,39 +65,39 @@ function PlayerStateSneak(){
 	hSpeed = lengthdir_x(inputMagnitude * speedSneak, inputDirection) + boostX;
 	vSpeed = lengthdir_y(inputMagnitude * speedSneak, inputDirection) + boostY;
 
-	if(PlayerCollisionWall(x + hSpeed, y, oBorder)){
-		while (!PlayerCollisionWall(x + sign(hSpeed), y, oBorder)) {
-		    x += sign(hSpeed);
-		}
+	#region Tilemap wall collision
+	// Right Collision
+	if (tilemap_get_at_pixel(wallTilemap, bbox_right + hSpeed, y) != 0){
+		x = round(x);
+		
 		hSpeed = 0;
-	}else if(PlayerCollisionWall(x + hSpeed, y, oBorderBottom)){
-		while (!PlayerCollisionWall(x + sign(hSpeed), y, oBorderBottom)) {
-		    x += sign(hSpeed);
-		}
-		hSpeed = 0;
-	}else if(PlayerCollisionWall(x + hSpeed, y, oBorderRight)){
-		while (!PlayerCollisionWall(x + sign(hSpeed), y, oBorderRight)) {
-		    x += sign(hSpeed);
-		}
-		hSpeed = 0;
+		_collision = true;
 	}
 	
-	if(PlayerCollisionWall(x, y + vSpeed, oBorder)){
-		while (!PlayerCollisionWall(x, y + sign(vSpeed), oBorder)) {
-		    y += sign(vSpeed);
-		}
-		vSpeed = 0;
-	}else if(PlayerCollisionWall(x, y + vSpeed, oBorderBottom)){
-		while (!PlayerCollisionWall(x, y + sign(vSpeed), oBorderBottom)) {
-		    y += sign(vSpeed);
-		}
-		vSpeed = 0;
-	}else if(PlayerCollisionWall(x, y + vSpeed, oBorderRight)){
-		while (!PlayerCollisionWall(x, y + sign(vSpeed), oBorderRight)) {
-		    y += sign(vSpeed);
-		}
-		vSpeed = 0;
+	// Left Collision
+	if (tilemap_get_at_pixel(wallTilemap, bbox_left + hSpeed, y) != 0){
+		x = round(x);
+		
+		hSpeed = 0;
+		_collision = true;
 	}
+
+	// Top Collision
+	if (tilemap_get_at_pixel(wallTilemap, x, bbox_top + vSpeed + 10) != 0){
+		y = round(y);
+		
+		vSpeed = 0;
+		_collision = true;
+	}
+	
+	// Bottom Collision
+	if (tilemap_get_at_pixel(wallTilemap, x, bbox_bottom + vSpeed) != 0){
+		y = round(y);
+		
+		vSpeed = 0;
+		_collision = true;
+	}
+	#endregion
 	
 	x += hSpeed;
 	y += vSpeed;

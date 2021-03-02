@@ -12,6 +12,7 @@ keyDash = keyboard_check_pressed(vk_space);
 keyTakeItem = keyboard_check_pressed(ord("C"));
 keyDropFirstItem = keyboard_check(ord("Q")) && keyboard_check(vk_shift);
 keyDropSecondItem = keyboard_check(ord("E")) && keyboard_check(vk_shift);
+keyDropItem = keyboard_check(ord("G"));
 keySelectFirstItem = keyboard_check_pressed(ord("Q"));
 keySelectSecondItem = keyboard_check_pressed(ord("E"));
 
@@ -28,19 +29,29 @@ if(dashCooldown > 0){
 	dashCooldown--;	
 }
 
-if(keyDropFirstItem) {
-	if (firstInventory != undefined) {
+if (keyDropItem) {
+	if (selectedInventory == selectedItem.firstItem && firstInventory != undefined) {
 		ItemSpawn(x, y, firstInventory.object);
 		firstInventory = undefined;
-	}
-}
-
-if(keyDropSecondItem) {
-	if (secondInventory != undefined) {
+	} else if (selectedInventory == selectedItem.secondItem && secondInventory != undefined) {
 		ItemSpawn(x, y, secondInventory.object);
 		secondInventory = undefined;
 	}
 }
+
+//if(keyDropFirstItem) {
+//	if (firstInventory != undefined) {
+//		ItemSpawn(x, y, firstInventory.object);
+//		firstInventory = undefined;
+//	}
+//}
+
+//if(keyDropSecondItem) {
+//	if (secondInventory != undefined) {
+//		ItemSpawn(x, y, secondInventory.object);
+//		secondInventory = undefined;
+//	}
+//}
 
 if(keySelectFirstItem) {
 	selectedInventory = selectedItem.firstItem;

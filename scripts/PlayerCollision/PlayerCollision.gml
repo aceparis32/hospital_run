@@ -124,7 +124,7 @@ function PlayerCollisionWalk(){
 	}
 
 	// Top Collision
-	if (tilemap_get_at_pixel(wallTilemap, x, bbox_top + vSpeed) != 0){
+	if (tilemap_get_at_pixel(wallTilemap, x, bbox_top + vSpeed + 10) != 0){
 		y = round(y);
 		
 		vSpeed = 0;
