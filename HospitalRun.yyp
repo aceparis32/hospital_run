@@ -114,6 +114,7 @@
     {"id":{"name":"msc_test","path":"sounds/msc_test/msc_test.yy",},"order":3,},
     {"id":{"name":"oTextBox","path":"objects/oTextBox/oTextBox.yy",},"order":0,},
     {"id":{"name":"sSkeleton_Idle_Up","path":"sprites/sSkeleton_Idle_Up/sSkeleton_Idle_Up.yy",},"order":3,},
+    {"id":{"name":"sInventoryBox","path":"sprites/sInventoryBox/sInventoryBox.yy",},"order":14,},
     {"id":{"name":"sGUIStar","path":"sprites/sGUIStar/sGUIStar.yy",},"order":1,},
     {"id":{"name":"oTalisman","path":"objects/oTalisman/oTalisman.yy",},"order":12,},
     {"id":{"name":"oKnife","path":"objects/oKnife/oKnife.yy",},"order":10,},

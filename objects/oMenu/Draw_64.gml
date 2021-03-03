@@ -136,8 +136,10 @@ repeat (dsHeight) {
 			c = c_white;
 			if (inputting && yy == menuOption[page]) {
 				c = c_yellow;
+				draw_text_color(rtx, rty, ">> ", c,c,c,c, 1);
+
 			}
-			draw_text_color(rtx, rty, stringVal, c,c,c,c, 1);
+			draw_text_color(rtx + xBuffer + 4, rty, stringVal, c,c,c,c, 1);
 			break;
 	}	
 	

@@ -28,7 +28,11 @@ if (collision_line(x, y, oPlayer.x, oPlayer.y, oBorder, 1, 0)) {
 			moveY = lengthdir_y(choose(moveSpeed, 0), moveDir * 90);
 		}
 		
-		EnemyCollision();
+		var enemyCollision = EnemyCollision();
+		
+		if (enemyCollision) {
+			state = st.idle;
+		}
 		
 		//Collisions
 		//if (collision(moveX, 0)){

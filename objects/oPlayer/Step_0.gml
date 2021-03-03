@@ -89,6 +89,9 @@ if(state == playerStates.idle && !isPlayerStunned){
 }else if(state == playerStates.slip) {
 	stateName = "Slip";
 	script_execute(PlayerSlipped);	
+}else if(state == playerStates.stun_wall) {
+	stateName = "Wall Stun";
+	script_execute(PlayerStunWall);	
 }
 
 // Enemy Collision

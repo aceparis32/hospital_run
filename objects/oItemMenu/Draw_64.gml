@@ -11,25 +11,29 @@ var border = 2;
 
 var xx = cellSize;
 
+// Draw inventory box
+draw_sprite(sInventoryBox, 0, xx + border, border);
+draw_sprite(sInventoryBox, 0, (xx * 2) + border, border);
+
 // Item Selected BG
 switch(oPlayer.selectedInventory) {
 	case selectedItem.firstItem:
 		var xx = cellSize;
 
 		// Rectangle
-		draw_set_alpha(0.8);
+		draw_set_alpha(0.3);
 		draw_rectangle(xx + border, border, xx + cellSize - border * 2, cellSize - border*2, false);
 		draw_set_alpha(1);
-		draw_text(xx + 5, 5, "1");
+		draw_text(xx + 10, 5, "1");
 		break;
 	case selectedItem.secondItem:
 		var xx = 2 * cellSize;
 
 		// Rectangle
-		draw_set_alpha(0.8);
+		draw_set_alpha(0.3);
 		draw_rectangle(xx + border, border, xx + cellSize - border * 2, cellSize - border*2, false);
 		draw_set_alpha(1);
-		draw_text(xx + 5, 5, "2");
+		draw_text(xx + 10, 5, "2");
 		break;
 	default:
 		break;

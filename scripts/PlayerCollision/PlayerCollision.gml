@@ -99,47 +99,69 @@ function PlayerCollisionWall(_x, _y, _border){
 	return place_meeting(_x, _y, _border);
 }
 	
-function PlayerCollisionWalk(){
+function PlayerCollisionWalk(_speed){
 		// MOVEMENT
-	hSpeed = lengthdir_x(inputMagnitude * speedWalk, inputDirection) + round(boostX);
-	vSpeed = lengthdir_y(inputMagnitude * speedWalk, inputDirection) + round(boostY);
+	hSpeed = lengthdir_x(inputMagnitude * _speed, inputDirection) + round(boostX);
+	vSpeed = lengthdir_y(inputMagnitude * _speed, inputDirection) + round(boostY);
 
 	var _collision = false;
 	
 	#region Tilemap wall collision
-	// Right Collision
-	if (tilemap_get_at_pixel(wallTilemap, bbox_right + hSpeed, y) != 0){
-		x = round(x);
+	//// Right Collision
+	//if (tilemap_get_at_pixel(wallTilemap, bbox_right + hSpeed + 5, y) != 0){
+	//	x = round(x);
 		
-		hSpeed = 0;
-		_collision = true;
-	}
+	//	hSpeed = 0;
+	//	_collision = true;
+	//}
 	
-	// Left Collision
-	if (tilemap_get_at_pixel(wallTilemap, bbox_left + hSpeed, y) != 0){
-		x = round(x);
+	//// Left Collision
+	//if (tilemap_get_at_pixel(wallTilemap, bbox_left + hSpeed - 5, y) != 0){
+	//	x = round(x);
 		
-		hSpeed = 0;
-		_collision = true;
-	}
+	//	hSpeed = 0;
+	//	_collision = true;
+	//}
 
-	// Top Collision
-	if (tilemap_get_at_pixel(wallTilemap, x, bbox_top + vSpeed + 10) != 0){
-		y = round(y);
+	//// Top Collision
+	//if (tilemap_get_at_pixel(wallTilemap, x, bbox_top + vSpeed + 10) != 0){
+	//	y = round(y);
 		
-		vSpeed = 0;
-		_collision = true;
-	}
+	//	vSpeed = 0;
+	//	_collision = true;
+	//}
 	
-	// Bottom Collision
-	if (tilemap_get_at_pixel(wallTilemap, x, bbox_bottom + vSpeed) != 0){
-		y = round(y);
+	//// Bottom Collision
+	//if (tilemap_get_at_pixel(wallTilemap, x, bbox_bottom + vSpeed - 10) != 0){
+	//	y = round(y);
 		
-		vSpeed = 0;
-		_collision = true;
-	}
+	//	vSpeed = 0;
+	//	_collision = true;
+	//}
 	#endregion
 	
+	// Tilemap collision
+	//var tileCol = tilemap_get_at_pixel(wallTilemap, bbox_left + hSpeed, bbox_top + vSpeed + 10) ||
+	//				tilemap_get_at_pixel(wallTilemap, bbox_right + hSpeed, bbox_top + vSpeed + 10) ||
+	//				tilemap_get_at_pixel(wallTilemap, bbox_right + hSpeed, bbox_bottom + vSpeed) ||					tilemap_get_at_pixel(wallTilemap, bbox_right + hSpeed, bbox_bottom + vSpeed) ||
+	//				tilemap_get_at_pixel(wallTilemap, bbox_left + hSpeed, bbox_bottom + vSpeed);
+	
+	if (TileCollisionCheck(hSpeed, 0)){
+		while (!TileCollisionCheck(sign(hSpeed), 0)){
+			x += sign(hSpeed);	
+		}
+		
+		hSpeed = 0;
+	}
+	
+	if (TileCollisionCheck(0, vSpeed)){
+		while (!TileCollisionCheck(0, sign(vSpeed))){
+			y += sign(vSpeed);	
+		}
+		
+		vSpeed = 0;
+	}
+
 	// create entity data structure
 	var _entityList = ds_list_create();
 	// Horizontal entities
@@ -210,5 +232,22 @@ function PlayerCollisionWalk(){
 	
 	return _collision;	
 }
+
+function TileCollisionCheck(_hSpeed, _vSpeed) {
+	var _xAdd = _hSpeed;
+	var _yAdd = _vSpeed;
 	
+	// Tile Collision
+	var tileCol =
+				// Top left corner
+				tilemap_get_at_pixel(wallTilemap, bbox_left + _xAdd, bbox_top + _yAdd) ||
+				// Top right corner
+				tilemap_get_at_pixel(wallTilemap, bbox_right + _xAdd, bbox_top + _yAdd) ||
+				// Bottom right corner
+				tilemap_get_at_pixel(wallTilemap, bbox_right + _xAdd, bbox_bottom + _yAdd) ||
+				// Bottom left corner
+				tilemap_get_at_pixel(wallTilemap, bbox_left + _xAdd, bbox_bottom + _yAdd);
+				
+	return tileCol;
+}
 	

@@ -6,7 +6,8 @@ enum playerStates {
 	sneak,
 	dash,
 	stun,
-	slip
+	slip,
+	stun_wall
 }
 
 enum selectedItem {

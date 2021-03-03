@@ -3,7 +3,7 @@
 function PlayerStateFree(){
 	
 	if (!isPlayerStunned) {
-		PlayerCollisionWalk();
+		PlayerCollisionWalk(speedWalk);
 		
 		// UPDATE SPRITE INDEX
 		var _oldSprite = sprite_index;
@@ -30,7 +30,7 @@ function PlayerStateFree(){
 
 function PlayerStateWalk(){
 	if(!isPlayerStunned) {
-		PlayerCollisionWalk(); 
+		PlayerCollisionWalk(speedWalk); 
 		
 		// UPDATE SPRITE INDEX
 		var _oldSprite = sprite_index;
@@ -61,72 +61,34 @@ function PlayerStateWalk(){
 }
 
 function PlayerStateSneak(){
-	// MOVEMENT
-	hSpeed = lengthdir_x(inputMagnitude * speedSneak, inputDirection) + boostX;
-	vSpeed = lengthdir_y(inputMagnitude * speedSneak, inputDirection) + boostY;
-
-	#region Tilemap wall collision
-	// Right Collision
-	if (tilemap_get_at_pixel(wallTilemap, bbox_right + hSpeed, y) != 0){
-		x = round(x);
+	if(!isPlayerStunned) {
+		PlayerCollisionWalk(speedSneak); 
 		
-		hSpeed = 0;
-		_collision = true;
-	}
-	
-	// Left Collision
-	if (tilemap_get_at_pixel(wallTilemap, bbox_left + hSpeed, y) != 0){
-		x = round(x);
-		
-		hSpeed = 0;
-		_collision = true;
-	}
+		// UPDATE SPRITE INDEX
+		var _oldSprite = sprite_index;
+		if (inputMagnitude != 0 && keySneak){
+			state = playerStates.sneak;
+			direction = inputDirection;
+			sprite_index = spriteSneak;
+		} else if (inputMagnitude != 0) {
+			state = playerStates.walk;
+			direction = inputDirection;
+			sprite_index = spriteWalk;
+		} else {
+			state = playerStates.idle;
+			sprite_index = spriteIdle;
+		}
 
-	// Top Collision
-	if (tilemap_get_at_pixel(wallTilemap, x, bbox_top + vSpeed + 10) != 0){
-		y = round(y);
-		
-		vSpeed = 0;
-		_collision = true;
-	}
+		if(_oldSprite != sprite_index){
+			localFrame = 0;
+		}
 	
-	// Bottom Collision
-	if (tilemap_get_at_pixel(wallTilemap, x, bbox_bottom + vSpeed) != 0){
-		y = round(y);
-		
-		vSpeed = 0;
-		_collision = true;
-	}
-	#endregion
+		if (place_meeting(x, y, oPuddle)) {
+			state = playerStates.slip;
+		}
 	
-	x += hSpeed;
-	y += vSpeed;
-
-
-	// UPDATE SPRITE INDEX
-	var _oldSprite = sprite_index;
-	if (inputMagnitude != 0 && keySneak){
-		state = playerStates.sneak;
-		direction = inputDirection;
-		sprite_index = spriteSneak;
-	} else if (inputMagnitude != 0) {
-		state = playerStates.walk;
-		direction = inputDirection;
-		sprite_index = spriteWalk;
-	} else {
-		state = playerStates.idle;
-		sprite_index = spriteIdle;
+		PlayerAnimateSprite();
 	}
-
-	if(_oldSprite != sprite_index){
-		localFrame = 0;
-	}
-	
-	if (place_meeting(x, y, oPuddle)) {
-		state = playerStates.slip;
-	}
-	
-	PlayerAnimateSprite();
 }
 
 function PlayerStateDash(){
@@ -152,27 +114,37 @@ function PlayerStateDash(){
 		dropItemRange = 0;
 	}
 	
-	if (_collided) {
-		var objectDashedList = ds_list_create();
-		var dashed = instance_place_list(x, y, pEntity, objectDashedList, false);
+	//if (_collided) {
+	//	var objectDashedList = ds_list_create();
+	//	var dashed = instance_place_list(x, y, pEntity, objectDashedList, false);
 		
-		if(dashed > 0){
-			for (var i = 0; i < dashed; i++) {
-				var dashedID = objectDashedList[| i];
-				with (dashedID){
-					if(entity_hit_script != -1 && entity_hit_type == "dash") {
-						script_execute(entity_hit_script);	
-					}
-				}
-			}
-		}
-		ds_list_destroy(objectDashedList);
-		state = playerStates.idle;
-		sprite_index = spriteIdle;
-	}
+	//	if(dashed > 0){
+	//		for (var i = 0; i < dashed; i++) {
+	//			var dashedID = objectDashedList[| i];
+	//			with (dashedID){
+	//				if(entity_hit_script != -1 && entity_hit_type == "dash") {
+	//					script_execute(entity_hit_script);	
+	//				}
+	//			}
+	//		}
+	//	}
+	//	ds_list_destroy(objectDashedList);
+	//	state = playerStates.idle;
+	//	sprite_index = spriteIdle;
+	//}
 }
 
 function PlayerStunned() {
+	playerStunned--;	
+	
+	if (playerStunned <= 0) {
+		playerStunned = 0;
+		isPlayerStunned = false;
+		state = playerStates.idle;
+	}
+}
+
+function PlayerStunWall() {
 	playerStunned--;	
 	
 	if (playerStunned <= 0) {
@@ -202,6 +174,19 @@ function PlayerSlipped() {
 	// No dash animation
 	
 	// If dash distance was finished, change state to normal
+	if (_collided) {
+		dropItemRange = 0;
+		distanceSlip = 0;
+		
+		playerStunned = 4 * 60;
+		isPlayerStunned = true;
+		state = playerStates.stun_wall;
+		sprite_index = spriteIdle;
+		dropItemRange = 0;
+		distanceSlip = 120;
+	}
+	
+	
 	if (distanceSlip <= 0){
 		playerStunned = 2 * 60;
 		isPlayerStunned = true;

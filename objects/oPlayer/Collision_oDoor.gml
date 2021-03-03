@@ -20,7 +20,8 @@ if(keyboard_check(ord("F"))){
 			}
 		}	
 	}else if (oPlayer.selectedInventory == selectedItem.secondItem) {
-		if (oPlayer.secondInventory.name == "Key") {
+		if (oPlayer.secondInventory != undefined) {
+			if (oPlayer.secondInventory.name == "Key") {
 				interactionTimeStatus = true;
 				var isEnd = InteractionTime(0);
 				
@@ -37,6 +38,7 @@ if(keyboard_check(ord("F"))){
 					other.currentDoorState = DoorStates.open;
 				}
 			}	
+		}
 	}
 }else{
 	keyTimer = room_speed * 0.3;
