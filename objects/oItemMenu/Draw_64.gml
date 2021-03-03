@@ -21,19 +21,21 @@ switch(oPlayer.selectedInventory) {
 		var xx = cellSize;
 
 		// Rectangle
+		draw_set_color(c_white);
 		draw_set_alpha(0.3);
 		draw_rectangle(xx + border, border, xx + cellSize - border * 2, cellSize - border*2, false);
 		draw_set_alpha(1);
-		draw_text(xx + 10, 5, "1");
+		draw_text_color(xx + 10, 5, "1", c_white, c_white, c_white, c_white, 1);
 		break;
 	case selectedItem.secondItem:
 		var xx = 2 * cellSize;
 
 		// Rectangle
+		draw_set_color(c_white);
 		draw_set_alpha(0.3);
 		draw_rectangle(xx + border, border, xx + cellSize - border * 2, cellSize - border*2, false);
 		draw_set_alpha(1);
-		draw_text(xx + 10, 5, "2");
+		draw_text_color(xx + 10, 5, "2", c_white, c_white, c_white, c_white, 1);
 		break;
 	default:
 		break;
