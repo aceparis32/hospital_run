@@ -75,7 +75,7 @@ dsMenuDifficulty = CreateMenuPage(
 
 dsMenuGraphics = CreateMenuPage(
 	["RESOLUTION", menuElementType.shift, ChangeResolution, 0, ["1366 x 768", "1152 x 648", "768 x 432", "384 x 216"]],
-	["WINDOW MODE", menuElementType.toggle, ChangeWindowMode, 1, ["FULLSCREEN", "WINDOWED"]],
+	["FULLSCREEN", menuElementType.toggle, ChangeWindowMode, 1, ["FULLSCREEN", "WINDOWED"]],
 	["BACK", menuElementType.page_transfer, menuPage.options]	
 );
 
