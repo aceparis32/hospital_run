@@ -10,8 +10,8 @@ keyDown = keyboard_check(ord("S"));
 keySneak = keyboard_check(vk_control);
 keyDash = keyboard_check_pressed(vk_space);
 keyTakeItem = keyboard_check_pressed(ord("C"));
-keyDropFirstItem = keyboard_check(ord("Q")) && keyboard_check(vk_shift);
-keyDropSecondItem = keyboard_check(ord("E")) && keyboard_check(vk_shift);
+keyAlternateFirstItem = keyboard_check(ord("Q")) && keyboard_check(vk_shift);
+keyAlternateSecondItem = keyboard_check(ord("E")) && keyboard_check(vk_shift);
 keyDropItem = keyboard_check(ord("G"));
 keySelectFirstItem = keyboard_check_pressed(ord("Q"));
 keySelectSecondItem = keyboard_check_pressed(ord("E"));
@@ -37,6 +37,14 @@ if (keyDropItem) {
 		ItemSpawn(x, y, secondInventory.object);
 		secondInventory = undefined;
 	}
+}
+
+if (keyAlternateFirstItem) {
+	script_execute(AlternateUseFirstItem);	
+}
+
+if (keyAlternateSecondItem) {
+	script_execute(AlternateUseSecondItem);	
 }
 
 //if(keyDropFirstItem) {
